@@ -1,8 +1,10 @@
+import 'package:basic_ride_booking_app/screens/book_ride/widgets/book_ride_steps.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/geolocator_provider.dart';
+import '../../widgets/custom_draggable_scrollable_sheet.dart';
 import 'book_ride_mixin.dart';
 
 class BookRideScreen extends StatefulWidget {
@@ -25,11 +27,16 @@ class _BookRideScreenState extends State<BookRideScreen> with BookRideMixin {
     return Scaffold(
       body:
           isMapInitialized
-              ? GoogleMap(
-                initialCameraPosition: cameraPosition,
-                onMapCreated: (GoogleMapController controller) {
-                  googleMapController.complete(controller);
-                },
+              ? Stack(
+                children: [
+                  GoogleMap(
+                    initialCameraPosition: cameraPosition,
+                    onMapCreated: (GoogleMapController controller) {
+                      googleMapController.complete(controller);
+                    },
+                  ),
+                  const CustomDraggableScrollableSheet(child: BookRideSteps()),
+                ],
               )
               : const Center(child: CircularProgressIndicator()),
     );

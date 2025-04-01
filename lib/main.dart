@@ -31,7 +31,11 @@ class MyApp extends StatelessWidget {
         title: 'Basic Ride Booking App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          colorScheme: ColorScheme.fromSeed(
+            primary: Colors.blueAccent,
+            seedColor: Colors.blue,
+          ),
+          useMaterial3: true,
         ),
         home: const SplashScreen(),
       ),
