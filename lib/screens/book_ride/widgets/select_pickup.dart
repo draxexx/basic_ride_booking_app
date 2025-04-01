@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/book_ride_provider.dart';
 import 'select_location.dart';
 
 class SelectPickup extends StatelessWidget {
@@ -7,8 +9,12 @@ class SelectPickup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SelectLocation(
-      text: "Please select a pickup location on the map",
+    final bookRide = context.watch<BookRideProvider>().bookRide;
+
+    return SelectLocation(
+      text:
+          bookRide.pickup?.address ??
+          "Please select a pickup location on the map",
     );
   }
 }

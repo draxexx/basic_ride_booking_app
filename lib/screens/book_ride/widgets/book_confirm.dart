@@ -1,4 +1,5 @@
 import 'package:basic_ride_booking_app/utils/extensions/datetime_extensions.dart';
+import 'package:basic_ride_booking_app/utils/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,12 +24,12 @@ class BookConfirm extends StatelessWidget {
             const SizedBox(height: 16),
             BookSummaryItem(
               title: "Pickup Location",
-              text: "${bookRide.pickup?.latitude}",
+              text: bookRide.pickup?.address?.shortenText() ?? "-",
             ),
             const SizedBox(height: 4),
             BookSummaryItem(
               title: "Destination",
-              text: "${bookRide.destination?.latitude}",
+              text: bookRide.destination?.address?.shortenText() ?? "-",
             ),
             const SizedBox(height: 4),
             BookSummaryItem(
@@ -38,7 +39,7 @@ class BookConfirm extends StatelessWidget {
             const SizedBox(height: 4),
             BookSummaryItem(
               title: "Date",
-              text: bookRide.date?.formatDate() ?? "",
+              text: bookRide.date?.formatDate() ?? "-",
             ),
           ],
         ),
@@ -55,12 +56,13 @@ class BookSummaryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "$title: ",
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
         ),
-        Text(text, style: const TextStyle(fontSize: 16)),
+        Expanded(child: Text(text, style: const TextStyle(fontSize: 16))),
       ],
     );
   }

@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../models/location.dart';
 import '../../providers/geolocator_provider.dart';
+import '../../services/gecoding_service.dart';
 import '../../services/geolocator_service.dart';
 import '../../utils/helpers/log_helper.dart';
 import '../../utils/helpers/permission_helper.dart';
@@ -17,6 +18,7 @@ mixin BookRideMixin on State<BookRideScreen> {
   final _geolocatorProvider = getIt<GeolocatorProvider>();
   final _bookRideProvider = getIt<BookRideProvider>();
   final _geolocatorService = getIt<GeolocatorService>();
+  final _geocodingService = getIt<GecodingService>();
 
   final Completer<GoogleMapController> googleMapController =
       Completer<GoogleMapController>();
@@ -35,16 +37,19 @@ mixin BookRideMixin on State<BookRideScreen> {
           ? LocationMarkers.destination.id
           : "";
 
-  void onMapTapped(LatLng position) {
+  void onMapTapped(LatLng position) async {
     if (!_isLocationSelection) return;
 
     final marker = Marker(markerId: MarkerId(_markerId), position: position);
 
     _geolocatorProvider.addOrUpdateMarker(marker);
 
+    final address = await _geocodingService.getAddressFromLatLng(position);
+
     final location = Location(
       latitude: position.latitude,
       longitude: position.longitude,
+      address: address,
     );
 
     // if the current step is 0, update the pickup location

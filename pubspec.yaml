@@ -16,6 +16,8 @@ dependencies:
   equatable: ^2.0.7
   # Geolocation
   geolocator: ^13.0.3
+  # Geocoding for address conversion
+  geocoding: ^3.0.0
   # GetIt for dependency injection
   get_it: ^8.0.3
   # Google Maps 
