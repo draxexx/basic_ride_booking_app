@@ -1,8 +1,24 @@
-import 'package:basic_ride_booking_app/screens/splash_screen.dart';
+import 'dart:async';
+
+import 'package:basic_ride_booking_app/screens/splash/splash_screen.dart';
+import 'package:basic_ride_booking_app/utils/setup/app_state_wrapper.dart';
 import 'package:flutter/material.dart';
 
+import 'utils/helpers/log_helper.dart';
+import 'utils/setup/app_initializer.dart';
+
 void main() {
-  runApp(const MyApp());
+  runZonedGuarded(
+    () async {
+      // Initialize the dependencies
+      await AppInitializer().init();
+
+      runApp(const MyApp());
+    },
+    (Object error, StackTrace stackTrace) {
+      LogHelper.error('$error\n$stackTrace');
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,13 +26,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Basic Ride Booking App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+    return AppStateWrapper(
+      child: MaterialApp(
+        title: 'Basic Ride Booking App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        ),
+        home: const SplashScreen(),
       ),
-      home: const SplashScreen(),
     );
   }
 }
