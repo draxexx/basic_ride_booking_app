@@ -25,6 +25,7 @@ class _BookRideScreenState extends State<BookRideScreen> with BookRideMixin {
         context.watch<GeolocatorProvider>().isMapInitialized;
 
     final markers = context.watch<GeolocatorProvider>().markers;
+    final polylines = context.watch<GeolocatorProvider>().polylines;
 
     if (!isMapInitialized) {
       return const Center(child: CircularProgressIndicator());
@@ -42,6 +43,7 @@ class _BookRideScreenState extends State<BookRideScreen> with BookRideMixin {
             },
             onTap: onMapTapped,
             markers: markers,
+            polylines: polylines,
           ),
           const CustomDraggableScrollableSheet(child: BookRideSteps()),
         ],

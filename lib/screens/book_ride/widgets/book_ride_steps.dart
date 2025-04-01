@@ -30,6 +30,14 @@ class _BookRideStepsState extends State<BookRideSteps> with BookRideStepsMixin {
     ];
 
     final currentStep = context.watch<BookRideProvider>().currentStep;
+    final bookRide = context.watch<BookRideProvider>().bookRide;
+
+    final bool isLastStep = currentStep == bookRideSteps.length - 1;
+
+    final bool isButtonDisabled =
+        currentStep == 0 && bookRide.pickup == null ||
+        currentStep == 1 && bookRide.destination == null ||
+        currentStep == 3 && bookRide.date == null;
 
     return Column(
       children: [
@@ -49,12 +57,14 @@ class _BookRideStepsState extends State<BookRideSteps> with BookRideStepsMixin {
         ),
         Row(
           children: [
-            CircularIconButton(onPressed: previous),
-            const SizedBox(width: 16),
+            if (currentStep != 0) CircularIconButton(onPressed: previous),
+            if (currentStep != 0) const SizedBox(width: 16),
             Expanded(
               child: CustomButton(
-                onPressed: () => next(bookRideSteps.length),
-                text: "Continue",
+                onPressed:
+                    isLastStep ? confirm : () => next(bookRideSteps.length),
+                text: isLastStep ? "Confirm" : "Continue",
+                isDisabled: isButtonDisabled,
               ),
             ),
           ],

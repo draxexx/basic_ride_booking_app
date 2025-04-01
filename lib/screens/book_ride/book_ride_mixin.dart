@@ -37,6 +37,25 @@ mixin BookRideMixin on State<BookRideScreen> {
           ? LocationMarkers.destination.id
           : "";
 
+  Future<void> _updatePolyLines() async {
+    // Check if both pickup and destination are not null
+    // Then update the polyline
+    if (_bookRideProvider.bookRide.pickup != null &&
+        _bookRideProvider.bookRide.destination != null) {
+      final LatLng origin = LatLng(
+        _bookRideProvider.bookRide.pickup!.latitude,
+        _bookRideProvider.bookRide.pickup!.longitude,
+      );
+
+      final LatLng destination = LatLng(
+        _bookRideProvider.bookRide.destination!.latitude,
+        _bookRideProvider.bookRide.destination!.longitude,
+      );
+
+      await _geolocatorProvider.updatePolyLines(origin, destination);
+    }
+  }
+
   void onMapTapped(LatLng position) async {
     if (!_isLocationSelection) return;
 
@@ -59,6 +78,8 @@ mixin BookRideMixin on State<BookRideScreen> {
     } else if (_bookRideProvider.currentStep == 1) {
       _bookRideProvider.updateDestination(location);
     }
+
+    await _updatePolyLines();
   }
 
   Future<bool> _hasPermission(BuildContext context) async {

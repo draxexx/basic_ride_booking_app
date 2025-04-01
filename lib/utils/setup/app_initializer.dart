@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 
 import '../helpers/log_helper.dart';
@@ -14,6 +15,7 @@ final class AppInitializer {
     try {
       setupLocator();
       setSystemConfigurations();
+      await dotenv.load(fileName: ".env");
     } catch (e) {
       LogHelper.error("Initialization failed: $e");
     }

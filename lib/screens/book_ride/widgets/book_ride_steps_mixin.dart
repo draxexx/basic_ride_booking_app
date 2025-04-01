@@ -1,12 +1,27 @@
+import 'package:basic_ride_booking_app/widgets/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../../../providers/book_ride_provider.dart';
 import '../../../utils/setup/app_initializer.dart';
+import '../../../widgets/success_dialog.dart';
 import 'book_ride_steps.dart';
 
 mixin BookRideStepsMixin on State<BookRideSteps> {
   final PageController pageController = PageController();
   final bookRideProvider = getIt<BookRideProvider>();
+
+  void confirm() {
+    showConfirmDialog(
+      context: context,
+      onSubmit:
+          () => showSuccessDialog(
+            context: context,
+            onSubmit: () {},
+            message: "Ride booked successfully!",
+          ),
+      message: "Are you sure you want to book this ride?",
+    );
+  }
 
   void next(int bookRideStepsLength) {
     if (bookRideProvider.currentStep < bookRideStepsLength - 1) {
