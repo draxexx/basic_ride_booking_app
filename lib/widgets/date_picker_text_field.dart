@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DatePickerTextField extends StatefulWidget {
   const DatePickerTextField({super.key, required this.onDateSelected});
 
-  final ValueChanged<DateTime> onDateSelected;
+  final ValueChanged<DateTime>? onDateSelected;
 
   @override
   State<DatePickerTextField> createState() => _DatePickerTextFieldState();
@@ -25,7 +25,7 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
         _controller.text = selected.formatDate();
       });
 
-      widget.onDateSelected.call(selected);
+      widget.onDateSelected?.call(selected);
     }
   }
 

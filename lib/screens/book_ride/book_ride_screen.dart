@@ -21,24 +21,31 @@ class BookRideScreen extends StatefulWidget {
 class _BookRideScreenState extends State<BookRideScreen> with BookRideMixin {
   @override
   Widget build(BuildContext context) {
-    bool isMapInitialized =
+    final isMapInitialized =
         context.watch<GeolocatorProvider>().isMapInitialized;
 
+    final markers = context.watch<GeolocatorProvider>().markers;
+
+    if (!isMapInitialized) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     return Scaffold(
-      body:
-          isMapInitialized
-              ? Stack(
-                children: [
-                  GoogleMap(
-                    initialCameraPosition: cameraPosition,
-                    onMapCreated: (GoogleMapController controller) {
-                      googleMapController.complete(controller);
-                    },
-                  ),
-                  const CustomDraggableScrollableSheet(child: BookRideSteps()),
-                ],
-              )
-              : const Center(child: CircularProgressIndicator()),
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: cameraPosition,
+            onMapCreated: (GoogleMapController controller) {
+              if (!googleMapController.isCompleted) {
+                googleMapController.complete(controller);
+              }
+            },
+            onTap: onMapTapped,
+            markers: markers,
+          ),
+          const CustomDraggableScrollableSheet(child: BookRideSteps()),
+        ],
+      ),
     );
   }
 }

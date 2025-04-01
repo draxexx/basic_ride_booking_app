@@ -7,17 +7,20 @@ class SelectLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(Icons.location_on, size: 64, color: Colors.red),
-        const SizedBox(height: 16),
-        Text(
-          text,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Icon(Icons.location_on, size: 64, color: Colors.red),
+            const SizedBox(height: 16),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:basic_ride_booking_app/providers/book_ride_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,9 @@ final class AppStateWrapper extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<GeolocatorProvider>(
           create: (context) => getIt<GeolocatorProvider>(),
+        ),
+        ChangeNotifierProvider<BookRideProvider>(
+          create: (context) => getIt<BookRideProvider>(),
         ),
       ],
       child: child,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../services/geolocator_service.dart';
 import '../utils/constants/enums/location_permission_status.dart';
@@ -16,8 +17,21 @@ class GeolocatorProvider with ChangeNotifier {
   bool _isMapInitialized = false;
   bool get isMapInitialized => _isMapInitialized;
 
+  final Set<Marker> _markers = {};
+  Set<Marker> get markers => _markers;
+
   void setMapInitialized(bool value) {
     _isMapInitialized = value;
+    notifyListeners();
+  }
+
+  void addOrUpdateMarker(Marker newMarker) {
+    final id = newMarker.markerId;
+
+    _markers.removeWhere((marker) => marker.markerId == id);
+
+    _markers.add(newMarker);
+
     notifyListeners();
   }
 

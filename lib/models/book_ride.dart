@@ -3,16 +3,16 @@ import 'package:equatable/equatable.dart';
 import 'location.dart';
 
 class BookRide extends Equatable {
-  final Location pickup;
-  final Location destination;
+  final Location? pickup;
+  final Location? destination;
   final int passengers;
-  final DateTime date;
+  final DateTime? date;
 
   const BookRide({
-    required this.pickup,
-    required this.destination,
-    required this.passengers,
-    required this.date,
+    this.pickup,
+    this.destination,
+    this.date,
+    this.passengers = 0,
   });
 
   BookRide copyWith({
@@ -31,19 +31,22 @@ class BookRide extends Equatable {
 
   factory BookRide.fromJson(Map<String, dynamic> json) {
     return BookRide(
-      pickup: Location.fromJson(json['pickup']),
-      destination: Location.fromJson(json['destination']),
-      passengers: json['passengers'] as int,
-      date: DateTime.parse(json['date'] as String),
+      pickup: json['pickup'] != null ? Location.fromJson(json['pickup']) : null,
+      destination:
+          json['destination'] != null
+              ? Location.fromJson(json['destination'])
+              : null,
+      passengers: json['passengers'] as int? ?? 0,
+      date: DateTime.tryParse(json['date'] as String? ?? ''),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'pickup': pickup.toJson(),
-      'destination': destination.toJson(),
+      'pickup': pickup?.toJson(),
+      'destination': destination?.toJson(),
       'passengers': passengers,
-      'date': date.toIso8601String(),
+      'date': date?.toIso8601String(),
     };
   }
 

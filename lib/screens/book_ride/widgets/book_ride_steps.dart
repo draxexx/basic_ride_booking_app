@@ -7,6 +7,9 @@ import 'package:basic_ride_booking_app/screens/book_ride/widgets/select_ride_dat
 import 'package:basic_ride_booking_app/widgets/circular_icon_button.dart';
 import 'package:basic_ride_booking_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/book_ride_provider.dart';
 
 class BookRideSteps extends StatefulWidget {
   const BookRideSteps({super.key});
@@ -21,31 +24,39 @@ class _BookRideStepsState extends State<BookRideSteps> with BookRideStepsMixin {
     final List<Widget> bookRideSteps = [
       const SelectPickup(),
       const SelectDestination(),
-      SelectPassengersCount(),
+      const SelectPassengersCount(),
       const SelectRideDate(),
       const BookConfirm(),
     ];
+
+    final currentStep = context.watch<BookRideProvider>().currentStep;
 
     return Column(
       children: [
         buildPageIndicator(
           itemCount: bookRideSteps.length,
-          currentIndex: currentIndex,
+          currentIndex: currentStep,
         ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: PageView(
               controller: pageController,
+              physics: const NeverScrollableScrollPhysics(),
               children: bookRideSteps,
             ),
           ),
         ),
         Row(
           children: [
-            CircularIconButton(onPressed: () {}),
+            CircularIconButton(onPressed: previous),
             const SizedBox(width: 16),
-            Expanded(child: CustomButton(onPressed: () {}, text: "Continue")),
+            Expanded(
+              child: CustomButton(
+                onPressed: () => next(bookRideSteps.length),
+                text: "Continue",
+              ),
+            ),
           ],
         ),
       ],
