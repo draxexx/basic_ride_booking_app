@@ -35,3 +35,23 @@ GOOGLE_API_KEY=your_api_key_here
 • Choose the number of passengers   
 • Select travel date and time  
 • Confirm and book the ride
+
+## Screenshots
+
+### Select Pickup Location
+<img src="https://i.ibb.co/YFjTzGN8/Simulator-Screenshot-i-Phone-16-2025-04-02-at-03-08-28.png" alt="Select Pickup Location" width="300"/>
+
+### Select Destination
+<img src="https://i.ibb.co/PZB2t16T/Simulator-Screenshot-i-Phone-16-2025-04-02-at-03-08-52.png" alt="Select Destination" width="300"/>
+
+### Choose the Number of Passengers
+<img src="https://i.ibb.co/TBS1b6Vf/Simulator-Screenshot-i-Phone-16-2025-04-02-at-03-09-02.png" alt="Choose the Number of Passengers" width="300"/>
+
+### Select Travel Date and Time  
+<img src="https://i.ibb.co/7x7zybQH/Simulator-Screenshot-i-Phone-16-2025-04-02-at-03-09-22.png" alt="Select Travel Date and Time" width="300"/>
+<img src="https://i.ibb.co/DfHbSqhC/Simulator-Screenshot-i-Phone-16-2025-04-02-at-03-15-49.png" alt="Select Travel Date and Time" width="300"/>
+<img src="https://i.ibb.co/JRZ3GdQY/Simulator-Screenshot-i-Phone-16-2025-04-02-at-03-15-54.png" alt="Select Travel Date and Time" width="300"/>
+
+### Confirm and Book the Ride
+<img src="https://i.ibb.co/wF3gwPRm/Simulator-Screenshot-i-Phone-16-2025-04-02-at-03-09-27.png" alt="Confirm and Book the Ride" width="300"/>
+<img src="https://i.ibb.co/93SNzDL4/Simulator-Screenshot-i-Phone-16-2025-04-02-at-03-09-32.png" alt="Confirm and Book the Ride" width="300"/>
