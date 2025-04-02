@@ -9,6 +9,8 @@ class SelectRideDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bookRide = context.watch<BookRideProvider>().bookRide;
+
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -19,6 +21,7 @@ class SelectRideDate extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             DatePickerTextField(
+              initialDate: bookRide.date,
               onDateSelected:
                   (value) => context.read<BookRideProvider>().updateDate(value),
             ),

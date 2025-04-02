@@ -3,9 +3,14 @@ import 'package:basic_ride_booking_app/utils/extensions/datetime_extensions.dart
 import 'package:flutter/material.dart';
 
 class DatePickerTextField extends StatefulWidget {
-  const DatePickerTextField({super.key, required this.onDateSelected});
+  const DatePickerTextField({
+    super.key,
+    required this.onDateSelected,
+    this.initialDate,
+  });
 
   final ValueChanged<DateTime>? onDateSelected;
+  final DateTime? initialDate;
 
   @override
   State<DatePickerTextField> createState() => _DatePickerTextFieldState();
@@ -26,6 +31,18 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
       });
 
       widget.onDateSelected?.call(selected);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    final date = widget.initialDate;
+
+    if (date != null) {
+      _selectedDate = date;
+      _controller.text = date.formatDate();
     }
   }
 
