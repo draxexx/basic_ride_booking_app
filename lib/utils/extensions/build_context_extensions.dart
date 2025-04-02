@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../helpers/log_helper.dart';
 
 extension DatePickerUtils on BuildContext {
+  /// Shows a date picker dialog.
   Future<DateTime?> showDatePickerDialog(DateTime? initialDate) async {
     return await showDatePicker(
       context: this,
@@ -12,6 +13,7 @@ extension DatePickerUtils on BuildContext {
     );
   }
 
+  /// Shows a time picker dialog.
   Future<TimeOfDay?> showTimePickerDialog(TimeOfDay? initialTime) async {
     return await showTimePicker(
       context: this,
@@ -19,6 +21,7 @@ extension DatePickerUtils on BuildContext {
     );
   }
 
+  /// Shows a date and time picker dialog.
   Future<DateTime?> showDateAndTimePickerDialog(
     DateTime? initialDateTime,
   ) async {

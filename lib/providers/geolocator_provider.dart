@@ -1,10 +1,10 @@
-import 'package:basic_ride_booking_app/services/polyline_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../services/geolocator_service.dart';
+import '../services/polyline_service.dart';
 import '../utils/constants/enums/location_permission_status.dart';
 import '../utils/helpers/log_helper.dart';
 
@@ -87,23 +87,27 @@ class GeolocatorProvider with ChangeNotifier {
   }
 
   Future<void> updatePolyLines(LatLng origin, LatLng destination) async {
-    final apiKey = dotenv.env["GOOGLE_API_KEY"] ?? "";
+    try {
+      final apiKey = dotenv.env["GOOGLE_API_KEY"] ?? "";
 
-    final routePoints = await polylineService.getRoutePoints(
-      origin: origin,
-      destination: destination,
-      apiKey: apiKey,
-    );
+      final routePoints = await polylineService.getRoutePoints(
+        origin: origin,
+        destination: destination,
+        apiKey: apiKey,
+      );
 
-    final poly = Polyline(
-      polylineId: const PolylineId("route"),
-      points: routePoints,
-      color: Colors.blue,
-      width: 5,
-    );
+      final poly = Polyline(
+        polylineId: const PolylineId("route"),
+        points: routePoints,
+        color: Colors.blue,
+        width: 5,
+      );
 
-    _polylines.clear();
-    _polylines.add(poly);
-    notifyListeners();
+      _polylines.clear();
+      _polylines.add(poly);
+      notifyListeners();
+    } catch (e) {
+      LogHelper.error("Error in updatePolyLines: $e");
+    }
   }
 }

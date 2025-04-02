@@ -28,7 +28,7 @@ class _BookRideScreenState extends State<BookRideScreen> with BookRideMixin {
     final polylines = context.watch<GeolocatorProvider>().polylines;
 
     if (!isMapInitialized) {
-      return const Center(child: CircularProgressIndicator());
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
